@@ -1,7 +1,7 @@
 import React from "react";
 
 function App() {
-	return <div>app.jsx</div>;
+	return <>11</>;
 }
 
 export default App;
