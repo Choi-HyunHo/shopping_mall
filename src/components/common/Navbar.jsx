@@ -1,26 +1,47 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiShoppingBag } from "react-icons/fi";
 import { BsFillPencilFill } from "react-icons/bs";
 
 // 구글 로그인
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
-import { auth } from "../../fbase";
+import {
+	GoogleAuthProvider,
+	signInWithPopup,
+	setPersistence,
+	browserSessionPersistence,
+	signOut,
+} from "firebase/auth";
+
+import { auth } from "../../api/fbase";
 
 const Navbar = () => {
 	const [userData, setUserData] = useState();
 
 	const handleGoogleLogin = () => {
-		const provider = new GoogleAuthProvider(); // provider를 구글로 설정
-		signInWithPopup(auth, provider) // popuop을 이용한 signUp
-			.then((data) => {
-				setUserData(data.user);
-				console.log(data);
+		setPersistence(auth, browserSessionPersistence)
+			.then(() => {
+				const provider = new GoogleAuthProvider();
+				signInWithPopup(auth, provider)
+					.then((data) => {
+						setUserData(data.user);
+						console.log(data);
+					})
+					.catch((err) => {
+						console.log(err);
+					});
 			})
-			.catch((err) => {
-				console.log(err);
+			.catch((error) => {
+				console.log(error);
 			});
 	};
+
+	const logout = () => {
+		signOut(auth).then(() => setUserData());
+	};
+
+	useEffect(() => {
+		console.log(userData);
+	}, [userData, auth]);
 
 	return (
 		<header className="flex justify-between border-b border-gray-300 p-2">
@@ -34,7 +55,12 @@ const Navbar = () => {
 				<Link to="/products/new" className="text-2xl">
 					<BsFillPencilFill />
 				</Link>
-				<button onClick={handleGoogleLogin}>Login</button>
+				{userData === undefined ? (
+					<button onClick={handleGoogleLogin}>Login</button>
+				) : (
+					<button onClick={logout}>Logout</button>
+				)}
+
 				{userData ? userData.displayName : null}
 			</nav>
 		</header>
