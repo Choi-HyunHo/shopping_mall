@@ -10,6 +10,7 @@ import {
 	setPersistence,
 	browserSessionPersistence,
 	signOut,
+	onAuthStateChanged, // 로그인 정보 유지
 } from "firebase/auth";
 
 import { auth } from "../../api/fbase";
@@ -39,9 +40,20 @@ const Navbar = () => {
 		signOut(auth).then(() => setUserData());
 	};
 
+	// 로그인 정보 유지를 위한 함수
+	const onUserStateChange = (callback) => {
+		onAuthStateChanged(auth, (user) => {
+			callback(user);
+		});
+	};
+
 	useEffect(() => {
+		onUserStateChange((user) => {
+			setUserData(user);
+		});
+
 		console.log(userData);
-	}, [userData, auth]);
+	}, []);
 
 	return (
 		<header className="flex justify-between border-b border-gray-300 p-2">
@@ -55,7 +67,7 @@ const Navbar = () => {
 				<Link to="/products/new" className="text-2xl">
 					<BsFillPencilFill />
 				</Link>
-				{userData === undefined ? (
+				{!userData ? (
 					<button onClick={handleGoogleLogin}>Login</button>
 				) : (
 					<button onClick={logout}>Logout</button>
