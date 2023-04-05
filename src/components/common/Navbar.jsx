@@ -14,18 +14,18 @@ import {
 } from "firebase/auth";
 
 import { auth } from "../../api/fbase";
+import User from "./User";
 
 const Navbar = () => {
 	const [userData, setUserData] = useState();
 
-	const handleGoogleLogin = () => {
+	const handleGoogleLogin = async () => {
 		setPersistence(auth, browserSessionPersistence)
 			.then(() => {
 				const provider = new GoogleAuthProvider();
 				signInWithPopup(auth, provider)
 					.then((data) => {
 						setUserData(data.user);
-						console.log(data);
 					})
 					.catch((err) => {
 						console.log(err);
@@ -49,10 +49,9 @@ const Navbar = () => {
 
 	useEffect(() => {
 		onUserStateChange((user) => {
+			console.log(user);
 			setUserData(user);
 		});
-
-		console.log(userData);
 	}, []);
 
 	return (
@@ -72,8 +71,7 @@ const Navbar = () => {
 				) : (
 					<button onClick={logout}>Logout</button>
 				)}
-
-				{userData ? userData.displayName : null}
+				{userData ? <User user={userData} /> : null}
 			</nav>
 		</header>
 	);
