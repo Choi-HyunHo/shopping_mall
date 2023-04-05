@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { FiShoppingBag } from "react-icons/fi";
 import { BsFillPencilFill } from "react-icons/bs";
 import User from "./User";
+import Button from "./Button";
 import { login, logout, onUserStateChange } from "../../api/fbase";
 
 const Navbar = () => {
@@ -14,8 +15,6 @@ const Navbar = () => {
 		});
 	}, []);
 
-	console.log(userData);
-
 	return (
 		<header className="flex justify-between border-b border-gray-300 p-2">
 			<Link to="/" className="flex items-center text-4xl text-brand">
@@ -25,15 +24,18 @@ const Navbar = () => {
 			<nav className="flex items-center gap-4 font-semibold">
 				<Link to="/products">Products</Link>
 				<Link to="/carts">Carts</Link>
-				<Link to="/products/new" className="text-2xl">
-					<BsFillPencilFill />
-				</Link>
-				{!userData ? (
-					<button onClick={login}>Login</button>
-				) : (
-					<button onClick={logout}>Logout</button>
+				{userData && userData.isAdmin && (
+					<Link to="/products/new" className="text-2xl">
+						<BsFillPencilFill />
+					</Link>
 				)}
+
 				{userData && <User user={userData} />}
+				{!userData ? (
+					<Button onClick={login} text="Login" />
+				) : (
+					<Button onClick={logout} text="Logout" />
+				)}
 			</nav>
 		</header>
 	);
