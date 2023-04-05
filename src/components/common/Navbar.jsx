@@ -23,6 +23,7 @@ const Navbar = () => {
 		setPersistence(auth, browserSessionPersistence)
 			.then(() => {
 				const provider = new GoogleAuthProvider();
+				provider.setCustomParameters({ prompt: "select_account" });
 				signInWithPopup(auth, provider)
 					.then((data) => {
 						setUserData(data.user);
@@ -42,10 +43,9 @@ const Navbar = () => {
 
 	// 로그인 정보 유지를 위한 함수
 	const onUserStateChange = (callback) => {
-		onAuthStateChanged(auth, (user) => {
-			user && adminUser(user);
-			console.log(user);
-			callback(user);
+		onAuthStateChanged(auth, async (user) => {
+			const updateUser = user ? await adminUser(user) : null;
+			callback(updateUser);
 		});
 	};
 
@@ -54,14 +54,16 @@ const Navbar = () => {
 		return get(ref(database, "admin")).then((snapshot) => {
 			if (snapshot.exists()) {
 				const admins = snapshot.val(); // realtime db 에 추가한 admin 값 가져오기
-				console.log(admins);
+				const isAdmin = admins.includes(user.uid);
+				return { ...user, isAdmin };
 			}
+
+			return user;
 		});
 	};
 
 	useEffect(() => {
 		onUserStateChange((user) => {
-			// adminUser();
 			setUserData(user);
 		});
 	}, []);
