@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { FiShoppingBag } from "react-icons/fi";
 import { BsFillPencilFill } from "react-icons/bs";
+import User from "./User";
 
 // 구글 로그인
 import {
@@ -12,14 +13,13 @@ import {
 	signOut,
 	onAuthStateChanged, // 로그인 정보 유지
 } from "firebase/auth";
-
-import { auth } from "../../api/fbase";
-import User from "./User";
+import { ref, get } from "firebase/database";
+import { auth, database } from "../../api/fbase";
 
 const Navbar = () => {
 	const [userData, setUserData] = useState();
 
-	const handleGoogleLogin = async () => {
+	const handleGoogleLogin = () => {
 		setPersistence(auth, browserSessionPersistence)
 			.then(() => {
 				const provider = new GoogleAuthProvider();
@@ -43,13 +43,25 @@ const Navbar = () => {
 	// 로그인 정보 유지를 위한 함수
 	const onUserStateChange = (callback) => {
 		onAuthStateChanged(auth, (user) => {
+			user && adminUser(user);
+			console.log(user);
 			callback(user);
+		});
+	};
+
+	// admin 권한
+	const adminUser = async (user) => {
+		return get(ref(database, "admin")).then((snapshot) => {
+			if (snapshot.exists()) {
+				const admins = snapshot.val(); // realtime db 에 추가한 admin 값 가져오기
+				console.log(admins);
+			}
 		});
 	};
 
 	useEffect(() => {
 		onUserStateChange((user) => {
-			console.log(user);
+			// adminUser();
 			setUserData(user);
 		});
 	}, []);
@@ -71,7 +83,7 @@ const Navbar = () => {
 				) : (
 					<button onClick={logout}>Logout</button>
 				)}
-				{userData ? <User user={userData} /> : null}
+				{userData && <User user={userData} />}
 			</nav>
 		</header>
 	);
