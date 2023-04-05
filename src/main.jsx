@@ -4,7 +4,6 @@ import App from "./App";
 import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./pages/Home";
-import Root from "./pages/Root";
 import AllProducts from "./pages/AllProducts";
 import NewProduct from "./pages/NewProduct";
 import ProductDetail from "./pages/ProductDetail";
@@ -13,7 +12,7 @@ import MyCart from "./pages/MyCart";
 const router = createBrowserRouter([
 	{
 		path: "/",
-		element: <Root />,
+		element: <App />,
 		children: [
 			{ index: true, element: <Home /> },
 			{ path: "/products", element: <AllProducts /> },
