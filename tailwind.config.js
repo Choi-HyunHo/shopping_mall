@@ -6,6 +6,9 @@ export default {
 			colors: {
 				brand: "#F96162",
 			},
+			fontFamily: {
+				sans: ["GmarketSansMedium"],
+			},
 		},
 	},
 	plugins: [],
