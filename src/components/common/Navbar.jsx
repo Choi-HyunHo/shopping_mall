@@ -9,7 +9,6 @@ import { useAuthContext } from "../context/AuthContext";
 
 const Navbar = () => {
 	const { userData } = useAuthContext();
-	console.log(userData);
 
 	return (
 		<header className="flex justify-between border-b border-gray-300 p-2">
@@ -19,7 +18,7 @@ const Navbar = () => {
 			</Link>
 			<nav className="flex items-center gap-4 font-semibold">
 				<Link to="/products">Products</Link>
-				<Link to="/carts">Carts</Link>
+				{userData && <Link to="/carts">Carts</Link>}
 				{userData && userData.isAdmin && (
 					<Link to="/products/new" className="text-2xl">
 						<BsFillPencilFill />
