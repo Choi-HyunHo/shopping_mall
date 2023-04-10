@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Button from "../components/common/Button";
 import { uploadImage } from "../api/uploader";
+import { addProducts } from "../api/fbase";
 
 const NewProduct = () => {
     const [product, setProduct] = useState({});
@@ -19,7 +20,7 @@ const NewProduct = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         uploadImage(file).then((url) => {
-            console.log(url);
+            addProducts(product, url);
         });
     };
 
