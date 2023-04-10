@@ -62,7 +62,7 @@ const logout = async () => {
 
 // admin 권한
 const adminUser = async (user) => {
-    return get(ref(database, "admin")).then((snapshot) => {
+    return get(ref(database, "admins")).then((snapshot) => {
         if (snapshot.exists()) {
             const admins = snapshot.val(); // realtime db 에 추가한 admin 값 가져오기
             const isAdmin = admins.includes(user.uid);
@@ -87,7 +87,8 @@ const addProducts = async (product, img) => {
         ...product,
         id,
         price: parseInt(product.price),
-        img: img,
+        image: img,
+        options: product.options.split(","),
     });
 };
 
