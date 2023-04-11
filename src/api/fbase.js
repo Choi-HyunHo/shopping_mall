@@ -92,4 +92,24 @@ const addProducts = async (product, img) => {
     });
 };
 
-export { app, auth, database, login, logout, onUserStateChange, addProducts };
+// 제품 리스트 가져오기
+const productList = async () => {
+    return get(ref(database, "products")).then((snapshot) => {
+        if (snapshot.exists()) {
+            const products = Object.values(snapshot.val());
+            return products;
+        }
+        return [];
+    });
+};
+
+export {
+    app,
+    auth,
+    database,
+    login,
+    logout,
+    onUserStateChange,
+    addProducts,
+    productList,
+};
