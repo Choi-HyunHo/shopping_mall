@@ -1,3 +1,4 @@
+import React from "react";
 import { useQuery } from "react-query";
 import { productList } from "../../api/fbase";
 import ProductCard from "./ProductCard";
