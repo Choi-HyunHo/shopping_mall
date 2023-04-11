@@ -1,12 +1,14 @@
-import React, { useEffect } from "react";
-import { productList } from "../api/fbase";
+import React from "react";
+import Products from "../components/common/Products";
+import Banner from "../components/common/Banner";
 
 const Home = () => {
-    useEffect(() => {
-        productList().then((res) => console.log(res));
-    }, []);
-
-    return <div>home</div>;
+    return (
+        <>
+            <Banner />
+            <Products />
+        </>
+    );
 };
 
 export default Home;
