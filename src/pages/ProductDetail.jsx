@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 import Button from "../components/common/Button";
+import { addCart } from "../api/fbase";
+import { useAuthContext } from "../context/AuthContext";
 
 const ProductDetail = () => {
+    const { uid } = useAuthContext();
     const location = useLocation();
     const { category, description, id, image, options, price, title } =
         location.state.product;
@@ -10,6 +13,18 @@ const ProductDetail = () => {
     const [value, setValue] = useState(options && options[0]);
     const handleChange = (e) => {
         setValue(e.target.value);
+    };
+
+    const handleAddCart = () => {
+        const product = {
+            id,
+            image,
+            title,
+            price,
+            option: value,
+            quantity: 1,
+        };
+        addCart(uid, product);
     };
 
     return (
@@ -42,7 +57,7 @@ const ProductDetail = () => {
                                 ))}
                         </select>
                     </div>
-                    <Button text="장바구니 추가" />
+                    <Button onClick={handleAddCart} text="장바구니 추가" />
                 </div>
             </div>
         </>

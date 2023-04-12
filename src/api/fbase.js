@@ -103,6 +103,13 @@ const productList = async () => {
     });
 };
 
+// 장바구니 저장
+const addCart = async (userId, product) => {
+    return set(ref(database, `carts/${userId}/${product.id}`), {
+        product,
+    });
+};
+
 export {
     app,
     auth,
@@ -112,4 +119,5 @@ export {
     onUserStateChange,
     addProducts,
     productList,
+    addCart,
 };
