@@ -6,7 +6,7 @@ import { useMutation } from "react-query";
 import { queryClient } from "../main";
 
 const CartItem = ({ item, uid }) => {
-    const { id, image, option, price, quantity, title } = item.product;
+    const { id, image, option, price, quantity, title } = item;
 
     const Quantity = useMutation(
         ({ uid, changeProduct }) => addCart(uid, changeProduct),
@@ -22,7 +22,7 @@ const CartItem = ({ item, uid }) => {
     const handleMinus = () => {
         if (quantity < 2) return;
         const changeProduct = {
-            ...item.product,
+            ...item,
             quantity: quantity - 1,
         };
         Quantity.mutate({ uid, changeProduct });
@@ -30,7 +30,7 @@ const CartItem = ({ item, uid }) => {
 
     const handlePlus = () => {
         const changeProduct = {
-            ...item.product,
+            ...item,
             quantity: quantity + 1,
         };
         Quantity.mutate({ uid, changeProduct });

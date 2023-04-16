@@ -25,7 +25,9 @@ const MyCart = () => {
     const totalPrice =
         data &&
         data.reduce(
-            (prev, current) => prev + parseInt(current.price) * current.quantity
+            (prev, current) =>
+                prev + parseInt(current.price) * current.quantity,
+            0
         );
 
     return (
