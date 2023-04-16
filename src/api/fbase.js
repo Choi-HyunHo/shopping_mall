@@ -9,7 +9,7 @@ import {
     browserSessionPersistence,
     onAuthStateChanged,
 } from "firebase/auth";
-import { getDatabase, ref, get, set } from "firebase/database";
+import { getDatabase, ref, get, set, remove } from "firebase/database";
 
 const {
     VITE_FIREBASE_API_KEY,
@@ -103,13 +103,6 @@ const productList = async () => {
     });
 };
 
-// 장바구니 저장
-const addCart = async (userId, product) => {
-    return set(ref(database, `carts/${userId}/${product.id}`), {
-        product,
-    });
-};
-
 // 장바구니 항목 불러오기
 const cartsInfo = async (userId) => {
     return get(ref(database, `carts/${userId}`)).then((snapshot) => {
@@ -118,6 +111,18 @@ const cartsInfo = async (userId) => {
             return Object.values(items);
         }
     });
+};
+
+// 장바구니 저장
+const addCart = async (userId, product) => {
+    return set(ref(database, `carts/${userId}/${product.id}`), {
+        product,
+    });
+};
+
+// 장바구니 삭제
+const removeCart = async (userId, product) => {
+    return remove(ref(database, `carts/${userId}/${product.id}`));
 };
 
 export {
@@ -131,4 +136,5 @@ export {
     productList,
     addCart,
     cartsInfo,
+    removeCart,
 };
