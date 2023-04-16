@@ -32,12 +32,14 @@ const MyCart = () => {
         <div>
             <span>내 장바구니</span>
             {hasProducts === false && <span>장바구니에 상품이 없습니다.</span>}
-            <ul>
+            <>
                 {hasProducts &&
-                    data.map((item) => (
-                        <CartItem key={item.id} item={item} uid={uid} />
+                    data.map((item, index) => (
+                        <ul key={index}>
+                            <CartItem key={item.id} item={item} uid={uid} />
+                        </ul>
                     ))}
-            </ul>
+            </>
             <div>
                 <PriceCard text="상품 총액" price={totalPrice} />
                 <BsFillPlusCircleFill />

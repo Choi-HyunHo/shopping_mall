@@ -121,8 +121,8 @@ const addCart = async (userId, product) => {
 };
 
 // 장바구니 삭제
-const removeCart = async (userId, product) => {
-    return remove(ref(database, `carts/${userId}/${product.id}`));
+const removeCart = async (userId, id) => {
+    return remove(ref(database, `carts/${userId}/${id}`));
 };
 
 export {

@@ -1,23 +1,31 @@
 import React from "react";
 import { AiOutlineMinusSquare, AiOutlinePlusSquare } from "react-icons/ai";
 import { RiDeleteBin5Fill } from "react-icons/ri";
-import { addCart } from "../api/fbase";
+import { addCart, removeCart } from "../api/fbase";
 import { useMutation } from "react-query";
 import { queryClient } from "../main";
 
 const CartItem = ({ item, uid }) => {
     const { id, image, option, price, quantity, title } = item.product;
 
-    const addQuantity = useMutation(
+    const Quantity = useMutation(
         ({ uid, changeProduct }) => addCart(uid, changeProduct),
         {
             onSuccess: () => queryClient.invalidateQueries(["cart"]),
         }
     );
 
+    const removeQuantity = useMutation(({ uid, id }) => removeCart(uid, id), {
+        onSuccess: () => queryClient.invalidateQueries(["cart"]),
+    });
+
     const handleMinus = () => {
         if (quantity < 2) return;
-        addCart(uid, { ...item.product, quantity: quantity - 1 });
+        const changeProduct = {
+            ...item.product,
+            quantity: quantity - 1,
+        };
+        Quantity.mutate({ uid, changeProduct });
     };
 
     const handlePlus = () => {
@@ -25,13 +33,15 @@ const CartItem = ({ item, uid }) => {
             ...item.product,
             quantity: quantity + 1,
         };
-        addQuantity.mutate({ uid, changeProduct });
+        Quantity.mutate({ uid, changeProduct });
     };
 
-    // const handleDelete
+    const handleDelete = () => {
+        removeQuantity.mutate({ uid, id });
+    };
 
     return (
-        <li>
+        <li key={id}>
             <img src={image} alt={title} />
             <div>
                 <span>{title}</span>
@@ -40,7 +50,7 @@ const CartItem = ({ item, uid }) => {
                     <AiOutlineMinusSquare onClick={handleMinus} />
                     <span>{quantity}</span>
                     <AiOutlinePlusSquare onClick={handlePlus} />
-                    <RiDeleteBin5Fill />
+                    <RiDeleteBin5Fill onClick={handleDelete} />
                 </div>
             </div>
         </li>

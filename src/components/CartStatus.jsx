@@ -8,8 +8,6 @@ const CartStatus = () => {
     const { uid } = useAuthContext();
     const { data } = useQuery(["cart", uid], () => cartsInfo(uid));
 
-    console.log(data);
-
     return (
         <div className="relative">
             <AiOutlineShoppingCart className="text-4xl" />
