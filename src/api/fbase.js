@@ -115,9 +115,7 @@ const cartsInfo = async (userId) => {
 
 // 장바구니 저장
 const addCart = async (userId, product) => {
-    return set(ref(database, `carts/${userId}/${product.id}`), {
-        product,
-    });
+    return set(ref(database, `carts/${userId}/${product.id}`), product);
 };
 
 // 장바구니 삭제
