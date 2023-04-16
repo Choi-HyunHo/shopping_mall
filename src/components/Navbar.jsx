@@ -6,6 +6,7 @@ import User from "./User";
 import Button from "./Button";
 import { login, logout, onUserStateChange } from "../api/fbase";
 import { useAuthContext } from "../context/AuthContext";
+import CartStatus from "./CartStatus";
 
 const Navbar = () => {
     const { userData } = useAuthContext();
@@ -18,7 +19,11 @@ const Navbar = () => {
             </Link>
             <nav className="flex items-center gap-4 font-semibold">
                 <Link to="/products">Products</Link>
-                {userData && <Link to="/carts">Carts</Link>}
+                {userData && (
+                    <Link to="/carts">
+                        <CartStatus />
+                    </Link>
+                )}
                 {userData && userData.isAdmin && (
                     <Link to="/products/new" className="text-2xl">
                         <BsFillPencilFill />

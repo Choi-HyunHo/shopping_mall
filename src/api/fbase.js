@@ -110,6 +110,16 @@ const addCart = async (userId, product) => {
     });
 };
 
+// 장바구니 항목 불러오기
+const cartsInfo = async (userId) => {
+    return get(ref(database, `carts/${userId}`)).then((snapshot) => {
+        if (snapshot.exists()) {
+            const items = snapshot.val() || {};
+            return Object.values(items);
+        }
+    });
+};
+
 export {
     app,
     auth,
@@ -120,4 +130,5 @@ export {
     addProducts,
     productList,
     addCart,
+    cartsInfo,
 };
