@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Button from "../components/common/Button";
+import Button from "../components/Button";
 import { uploadImage } from "../api/uploader";
 import { addProducts } from "../api/fbase";
 

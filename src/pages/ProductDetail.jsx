@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
-import Button from "../components/common/Button";
+import Button from "../components/Button";
 import { addCart } from "../api/fbase";
 import { useAuthContext } from "../context/AuthContext";
 
