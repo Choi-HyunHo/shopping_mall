@@ -2,12 +2,21 @@ import React, { useState } from "react";
 import Button from "../components/Button";
 import { uploadImage } from "../api/uploader";
 import { addProducts } from "../api/fbase";
+import { useMutation } from "react-query";
+import { queryClient } from "../main";
 
 const NewProduct = () => {
     const [product, setProduct] = useState({});
     const [file, setFile] = useState();
     const [isUploading, setIsUploading] = useState(false);
     const [success, setSuccess] = useState();
+
+    const addProduct = useMutation(
+        ({ product, url }) => addProducts(product, url),
+        {
+            onSuccess: () => queryClient.invalidateQueries(["products"]),
+        }
+    );
 
     const handleChange = (e) => {
         const { name, value, files } = e.target;
@@ -23,12 +32,17 @@ const NewProduct = () => {
         setIsUploading(true);
         uploadImage(file)
             .then((url) => {
-                addProducts(product, url).then(() => {
-                    setSuccess("성공적으로 제품이 추가되었습니다.");
-                    setTimeout(() => {
-                        setSuccess(null);
-                    }, 4000);
-                });
+                addProduct.mutate(
+                    { product, url },
+                    {
+                        onSuccess: () => {
+                            setSuccess("성공적으로 제품이 추가되었습니다.");
+                            setTimeout(() => {
+                                setSuccess(null);
+                            }, 4000);
+                        },
+                    }
+                );
             })
             .finally(() => setIsUploading(false));
     };

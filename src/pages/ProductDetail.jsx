@@ -3,6 +3,8 @@ import { useLocation } from "react-router-dom";
 import Button from "../components/Button";
 import { addCart } from "../api/fbase";
 import { useAuthContext } from "../context/AuthContext";
+import { useMutation } from "react-query";
+import { queryClient } from "../main";
 
 const ProductDetail = () => {
     const { uid } = useAuthContext();
@@ -15,6 +17,10 @@ const ProductDetail = () => {
         setValue(e.target.value);
     };
 
+    const addCarts = useMutation(({ uid, product }) => addCart(uid, product), {
+        onSuccess: () => queryClient.invalidateQueries(["cart"]),
+    });
+
     const handleAddCart = () => {
         const product = {
             id,
@@ -24,7 +30,7 @@ const ProductDetail = () => {
             option: value,
             quantity: 1,
         };
-        addCart(uid, product);
+        addCarts.mutate({ uid, product });
     };
 
     return (
