@@ -9,9 +9,9 @@ const ProductCard = ({ product }) => {
     return (
         <li
             onClick={() => navigate(`/products/${id}`, { state: { product } })}
-            className="rounded-lg shadow-md overflow-hidden cursor-pointer hover:scale-95 transition-all"
+            className="rounded-lg overflow-hidden cursor-pointer hover:scale-95 transition-all"
         >
-            <img className="w-full" src={image} alt={title} />
+            <img className="w-full h-5/6" src={image} alt={title} />
             <div className="mt-2 px-2 text-lg flex justify-between items-center">
                 <h3 className="truncate">{title}</h3>
                 <span>{`₩${price}`}</span>
