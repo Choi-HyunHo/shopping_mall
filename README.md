@@ -1,6 +1,6 @@
 # Shopping Mall
 
-React + Vite 기반의 쇼핑몰 프로젝트
+<img src='https://user-images.githubusercontent.com/87301268/233288610-98c113f0-f23b-46ac-b75f-d32138dbe315.png' width=100%>
 
 <br>
 
@@ -110,7 +110,7 @@ yarn dev
 
 <br>
 
-## 기능
+## 기능 문서화
 
 ### 로그인
 
