@@ -14,6 +14,7 @@
 
 ## 🛠️ 사용 기술
 
+<div>
 <img src="https://img.shields.io/badge/vite-646CFF?style=for-the-badge&logo=vite&logoColor=black">
 <img src="https://img.shields.io/badge/javascript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black">
 <img src="https://img.shields.io/badge/react-61DAFB?style=for-the-badge&logo=react&logoColor=black">
@@ -21,12 +22,13 @@
 <img src="https://img.shields.io/badge/reactquery-FF4154?style=for-the-badge&logo=reactquery&logoColor=black">
 <img src="https://img.shields.io/badge/firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black">
 <img src="https://img.shields.io/badge/tailwindcss-06B6D4?style=for-the-badge&logo=tailwindcss&logoColor=black">
+</div>
 
 <br>
 
 ## 실행 방법
 
-### ⚠️ .env에 들어있는 개인 key 로 인하여 설정이 필요함으로 실행이 안될거라고 생각합니다... 🥺
+#### ⚠️ .env에 들어있는 개인 key 로 인하여 설정이 필요함으로 실행이 안될거라고 생각합니다... 🥺
 
 <br>
 
