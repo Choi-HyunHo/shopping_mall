@@ -119,9 +119,24 @@ yarn dev
 
 ### Vite
 
+관련 포스팅 작성
+
+-   [React 프로젝트 구성을 CRA 대신 Vite ❓](https://choi-hyunho.com/react/react-vite/)
+
 <br>
 
 ### React-Query
+
+관련 포스팅 작성
+
+-   [React-Query ❓](https://choi-hyunho.com/react/react-query-1/)
+-   [React-Query - useQuery()](https://choi-hyunho.com/react/react-query-2/)
+-   [React-Query - 로딩 및 오류 상태](https://choi-hyunho.com/react/react-query-3/)
+-   [React-Query - Dev Tools](https://choi-hyunho.com/react/react-query-tool/)
+-   [React-Query - stale 그리고 라이프 사이클](https://choi-hyunho.com/react/react-query-4/)
+-   [React-Query - Query Key](https://choi-hyunho.com/react/react-query-5/)
+-   [React-Query - Pagination](https://choi-hyunho.com/react/react-query-6/)
+-   [React-Query - 데이터 프리패칭(Prefetching)](https://choi-hyunho.com/react/react-query-7/)
 
 <br>
 
@@ -139,6 +154,15 @@ yarn dev
 
 ### cloudinary
 
+클라우디너리 서비스(Cloudinary service)는 클라우드 기반의 미디어 관리 플랫폼입니다.
+이미지, 비디오, 오디오 및 기타 미디어 유형을 처리하고, 저장하고, 최적화하고, 전송하는 데 사용됩니다.
+또한 CDN(Content Delivery Network)과 연계하여 전 세계적으로 빠르고 안정적인 미디어 전송을 제공합니다.
+
+-   서버에 이미지를 저장하지 않고 storage에 따로 이미지 파일을 저장하고자 함
+
 <br>
 
 ## Reference
+
+-   [firebase](https://firebase.google.com/?hl=ko)
+-   [cloudinary](https://cloudinary.com/)
